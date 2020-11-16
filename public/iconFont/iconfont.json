@@ -1,0 +1,30 @@
+{
+  "id": "",
+  "name": "",
+  "font_family": "iconfont",
+  "css_prefix_text": "icon-",
+  "description": "",
+  "glyphs": [
+    {
+      "icon_id": "1008481",
+      "name": "退出",
+      "font_class": "tuichu",
+      "unicode": "e688",
+      "unicode_decimal": 59016
+    },
+    {
+      "icon_id": "4251718",
+      "name": "返回",
+      "font_class": "fanhui",
+      "unicode": "e63b",
+      "unicode_decimal": 58939
+    },
+    {
+      "icon_id": "16386245",
+      "name": "推荐",
+      "font_class": "biaoqiankuozhan_tuijian-126",
+      "unicode": "eaf6",
+      "unicode_decimal": 60150
+    }
+  ]
+}

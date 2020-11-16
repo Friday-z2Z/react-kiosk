@@ -1,0 +1,54 @@
+.readcardCXWrap{
+    height: 100%;
+    padding: 2.5rem;
+}
+.readcardCX {
+    height: 100%;
+    border-radius: 20px;
+    background: #ffffff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    .typesName{
+        font-size: 3rem;
+    }
+    .flex{
+        width: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        :global{
+            .ant-card-bordered{
+                border: none;
+            }
+        }
+        .card{
+            flex: 1;
+            img{
+                width: 57.5rem;
+                height: 30rem;
+                margin: auto;
+            }
+            // &~.card{
+            //     margin-left: 1.5rem;
+            // }
+            :global{
+                .ant-card-meta-title{
+                    color: #999;
+                    font-size: 2.5rem;
+                    text-align: center;
+                }
+                .ant-card-meta-description{
+                    text-align: center;
+                    button{
+                        width: 30rem;
+                        height: 6.67rem;
+                        font-size: 2.5rem;
+                        border-radius: 3.3rem;
+                    }
+                }
+            }
+        }
+    }
+}

@@ -1,0 +1,76 @@
+.content{
+    height: 100%;
+    padding: 2.5rem 16.67rem;
+    :global{
+        .ant-row,.ant-col{
+            height: 100%;
+        }
+    }
+    .flex{
+        height: 100%;
+        display: flex;
+        justify-content: center;
+        flex-direction: column;
+    }
+    .item{
+        padding: 4rem;
+        height: 100%;
+        color: #fff;
+        font-size: 3rem;
+        border-radius: 20px;
+        cursor: pointer;
+        box-shadow: 0 0 2.5rem 0 #3f69cf;
+        &~.item{
+            margin-top: 2.5rem;
+        }
+    }
+    .item1{
+        background: #ba71ff url('@/assets/common/img/bg_serach.png') no-repeat center;
+    }
+    .item2{
+        background: #facc44  url('@/assets/common/img/bg_yldy.png') no-repeat center;
+    }
+    .item3{
+        background: #fa5279  url('@/assets/common/img/bg_zmdy.png') no-repeat center;
+    }
+    .item4{
+        background: #a5e774  url('@/assets/common/img/bg_gsdy.png') no-repeat center;
+    }
+    .item5{
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        box-shadow: 0 0 2.5rem 0 #3f69cf;
+        background: #3a8cff url('@/assets/common/img/bg_cbzj.png') no-repeat center;
+    }
+    .mainListCol{
+        padding-left: 0 !important;
+    }
+    .otherListCol{
+        padding: 5.83rem 0;
+        border-radius: 20px;
+        background: rgba(255, 255, 255, 0.05);
+        box-shadow: 0 0 2.5rem 0 #3f69cf;
+        .otherList{
+            color: #fff;
+            font-size: 2.5rem;
+            margin-bottom: 2.5rem;
+            padding: 0 4.167rem;
+            cursor: pointer;
+            .icon{
+                width: 4.167rem;
+                height: 4.167rem;
+                display: inline-block;
+                color: #fff;
+                font-size: 2rem;
+                line-height: 4.167rem;
+                text-align: center;
+                margin-right: 1.67rem;
+                border-radius: 4px;
+                border: 1px solid #fff;
+                background: rgba(255, 255, 255, 0.3);
+            }
+        }
+    }
+}

@@ -1,0 +1,137 @@
+.layout {
+  height: 100%;
+  border-radius: 20px;
+  background: transparent;
+
+  .header {
+    font-size: 28px;
+    border-radius: 20px 20px 0 0;
+    font-weight: 600;
+    height: 72px;
+    line-height: 72px;
+    text-align: center;
+    background: #f2f7ff;
+  }
+
+  .contnetLayout {
+    border-radius: 0 0 0 20px;
+    background: transparent;
+
+    .contnet {
+      padding: 1.67rem 2.5rem;
+
+      .contnetInner {
+        height: 100%;
+        display: flex;
+        flex-direction: column;
+        animation: slide 0.5s;
+
+        h2 {
+          font-size: 26px;
+          color: #40a9ff;
+          font-weight: bold;
+          position: relative;
+          padding-left: 2rem;
+
+          &:before {
+            position: absolute;
+            content: '';
+            width: 4px;
+            height: 70%;
+            background: #40a9ff;
+            position: absolute;
+            left: 0;
+            top: 18%;
+          }
+        }
+
+        .main {
+          flex: 1;
+          padding: 20px 0;
+          overflow-y: auto;
+        }
+      }
+    }
+
+    :global {
+      .slide {
+        display: none !important;
+      }
+    }
+
+    .sider {
+      width: 35rem !important;
+      flex: 0 0 35rem !important;
+      min-width: 210px !important;
+      max-width: 35rem !important;
+      border-radius: 0 0 20px 0;
+      background: transparent;
+      box-shadow: 4px 0px 20px -5px rgba(0, 0, 0, 0.45);
+
+      :global {
+        .ant-layout-sider-children {
+          height: 100%;
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          justify-content: center;
+
+          .ant-steps {
+            padding: 0 5rem;
+
+            .ant-steps-item {
+              .ant-steps-item-title {
+                font-size: 18px;
+                color: #d9d9d9;
+                font-weight: bold;
+              }
+
+              &.ant-steps-item-active {
+                .ant-steps-item-title {
+                  font-size: 18px;
+                  color: rgba(0, 0, 0, 0.85);
+                }
+              }
+            }
+          }
+        }
+      }
+
+      .stepsAction {
+        height: 40%;
+        margin-top: 50px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+
+        :global {
+          .ant-btn {
+            width: 180px;
+            height: 64px;
+            text-align: center;
+            font-size: 24px;
+            margin: 0 !important;
+            border-radius: 32px;
+
+            & ~ .ant-btn {
+              margin-top: 15px !important;
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+@keyframes slide {
+  0% {
+    opacity: 0;
+    transform: translate(800px, 0);
+  }
+
+  100% {
+    opacity: 1;
+    transform: translate(0, 0);
+  }
+}
