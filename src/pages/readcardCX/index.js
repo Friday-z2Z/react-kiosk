@@ -1,5 +1,6 @@
 import React from 'react'
 import router from 'umi/router'
+import Cookie from 'js-cookie'
 import classNames from 'classnames'
 import { connect } from 'dva'
 import { USER_INFO, TOKEN } from '@/config/constant.config'
@@ -13,82 +14,120 @@ class ReadcardCX extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            isTest:process.env.NODE_ENV === 'development'
+            isTest:process.env.NODE_ENV === 'development',
+            userInfo:{}
         }
 
-        // window.callbackGetIdCard = function(str){
-
-        // }
-
-        const { dispatch } = this.props
-        // React.$tipModal.setCountDownNum(30000000000)
-
-        window.callbackGetIdCard = (str) => {
-            let res = JSON.parse(str);
-            console.log(res)
-            const idCard = res.result.replace(/\s*/g, '').split('|')[0]
-            const name = res.result.replace(/\s*/g, '').split('|')[1] || '测试账号'
-            dispatch({
-                type:'global/setInfo',
-                payload:{
-                    isTest:this.state.isTest,
-                    idCard,
-                    name
-                }
-            })
-        }
     }
 
     readCard = () => {
         const { dispatch, location: { state } } = this.props
-        console.log(window,window.callbackGetIdCard)
-        window.GetData(2, '%cardId%|%name%', window.callbackGetIdCard);
-        // const testInfo = {
-        //     name:USER_INFO.NAME,
-        //     idCard:USER_INFO.IDCARD
-        // }
-        // setTimeout(()=>{
-        //     // 设置个人信息
-        //     dispatch({
-        //         type:'global/setInfo',
-        //         payload:{...testInfo}
-        //     })
-        //     dispatch({
-        //         type:'global/setToken',
-        //         payload:{token:TOKEN}
-        //     })
-        //     // 设置所选事项类型
-        //     dispatch({
-        //         type:'matters/setCount',
-        //         payload:{
-        //             count:state.count||'0'
-        //         }
-        //     })
-        //     window.localStorage.setItem('defaultCount',state.count)
-        //     React.$tipModal.clear()
-        //     router.push({
-        //         pathname:'/sys/matters',
-        //         state:{ ...state,...testInfo }
-        //     })
-        //     // const storage = window.localStorage
-        //     // let josnStr = JSON.stringify(testInfo)
-        //     // storage.setItem('userInfo',josnStr)
-        // },5000)
+        
+        // 项目开发阶段使用
+        const testInfo = {
+            name:USER_INFO.NAME,
+            idCard:USER_INFO.IDCARD
+        }
+        setTimeout(()=>{
+            // 设置个人信息
+            dispatch({
+                type:'global/setInfo',
+                payload:{...testInfo}
+            })
+            Cookie.set('token',TOKEN)
+            // 设置所选事项类型
+            dispatch({
+                type:'matters/setCount',
+                payload:{
+                    count:state.count||'0'
+                }
+            })
+            window.localStorage.setItem('defaultCount',state.count)
+            React.$tipModal.clear()
+            router.push({
+                pathname:'/sys/matters',
+                state:{ ...state,...testInfo }
+            })
+            // const storage = window.localStorage
+            // let josnStr = JSON.stringify(testInfo)
+            // storage.setItem('userInfo',josnStr)
+        },5000)
+        let str = this.state.isTest?'测试':''
+        React.$tipModal.tickModal({
+            content:str + '正在读卡，请稍候...',
+            countdown:false
+        })
+
+        // 项目完成后解开注释
         // let str = this.state.isTest?'测试':''
         // React.$tipModal.tickModal({
         //     content:str + '正在读卡，请稍候...',
         //     countdown:false
         // })
+        // setTimeout(()=>{
+        //     window.GetData(2, '%cardId%|%name%', window.callbackGetIdCard);
+        // },3000)
+
     }
 
     componentDidMount() {
-        
+        const { dispatch, location: { state } } = this.props
+        const _this = this
+        // React.$tipModal.setCountDownNum(30000000000)
+        //获取token
+        window.callbackToken = function(str) {
+            React.$tipModal.clear()
+            let res = JSON.parse(str);
+            const { token = '' } = res
+            if (token){
+                Cookie.set('token',token)
+                // 设置个人信息
+                dispatch({
+                    type:'global/setInfo',
+                    payload:{..._this.state.userInfo}
+                })
+                // 设置所选事项类型
+                dispatch({
+                    type:'matters/setCount',
+                    payload:{
+                        count:state.count||'0'
+                    }
+                })
 
-        // window.GetData(2, '%cardId%|%name%', window.callbackGetIdCard);
+                window.localStorage.setItem('defaultCount',state.count)
+                router.push({
+                    pathname:'/sys/matters',
+                    state:{ ..._this.state, ...state }
+                })
+            }  else {
+                React.$tipModal.tickModal({
+                    content:'未获取到token',
+                    duration:5,
+                    countdown:true,
+                    pathname:'/login',
+                    query:{},
+                    state:{}
+                })
+            }
+        }
 
-        // 事件function的监听
-        // React.$eventEmitter.addListener('function',function(){})
-        // console.log(React.$eventEmitter)
+        // 读卡
+        window.callbackGetIdCard = (str) => {
+            let res = JSON.parse(str);
+            const idCard = res.result.replace(/\s*/g, '').split('|')[0]
+            const name = res.result.replace(/\s*/g, '').split('|')[1]
+            const userInfo = {
+                name:name || USER_INFO.NAME,
+                idCard
+            }
+
+            this.setState({
+                userInfo
+            },()=>{
+                window.GetWebSocket('getTokenEpsoft20190510',window.callbackToken)
+            })
+
+        }
 
     }
 

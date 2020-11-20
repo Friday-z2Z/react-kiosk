@@ -1,4 +1,4 @@
-import { Icon } from 'antd';
+import { Icon } from 'antd'
 
 export default {
   // 事项类别

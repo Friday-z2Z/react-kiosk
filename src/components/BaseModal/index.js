@@ -3,26 +3,26 @@ import { Modal } from 'antd'
 
 class BaseModal extends React.Component {
     constructor(props) {
-        super(props);
+        super(props)
         this.state = {}
     }
 
     static defaultProps = {
-        centered:true
+        centered: true
     }
 
-    render() {
+    render () {
         return (
             <Modal
                 maskClosable={false}
                 footer={null}
                 {...this.props}
-                wrapClassName={"baseModal "+ this.props.wrapClassName}
+                wrapClassName={"baseModal " + this.props.wrapClassName}
             >
-                { this.props.children }
+                { this.props.children}
             </Modal>
-        );
+        )
     }
 }
 
-export default BaseModal;
+export default BaseModal

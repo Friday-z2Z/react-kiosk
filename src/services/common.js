@@ -49,3 +49,14 @@ export function getSituationMaterials(payload) {
         },
     });
 }
+
+// 事项保存后续 addDothing
+export function addDothing(payload) {
+    return request('/common/common/adddothingShm/addDothing', {
+        method: 'Get',
+        params:{
+            qltsxbm:payload.powerMatterCode,
+            xzqh:payload.regionCode
+        },
+    });
+}

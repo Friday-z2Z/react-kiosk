@@ -12,3 +12,12 @@ export function getGTLDZTBInfo(payload) {
         },
     });
 }
+
+export function submit(payload) {
+    return request('/employment/person/personFlexibleShm/interruptSave', {
+        method: 'Get',
+        params:{
+            ...payload
+        },
+    });
+}

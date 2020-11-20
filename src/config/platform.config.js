@@ -15,7 +15,7 @@ module.exports = {
     pageNum: 1,
     // table默认一页条数
     pageSize: 10,
-    sysFrom:'',
+    sysFrom: '',
     // iconFont 地址
     iconUrl: '//at.alicdn.com/t/font_1030595_depmdbpf3yc.js',
     // 系统版本

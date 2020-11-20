@@ -1,9 +1,9 @@
-import React, { PureComponent } from 'react';
-import { Link } from 'umi';
-import PropTypes from 'prop-types';
+import React, { PureComponent } from 'react'
+import { Link } from 'umi'
+import PropTypes from 'prop-types'
 
-import { Result, Button } from 'antd';
-import config from './typeConfig';
+import { Result, Button } from 'antd'
+import config from './typeConfig'
 import './index.less'
 
 export default class Exception extends PureComponent {
@@ -15,19 +15,19 @@ export default class Exception extends PureComponent {
     };
 
     constructor(props) {
-        super(props);
-        this.state = {};
+        super(props)
+        this.state = {}
     }
-    render() {
+    render () {
         const {
             backText,
             type,
             title,
             desc,
             redirect
-        } = this.props;
-        const pageType = type in config ? type : '404';
-        const pageTitle = title in config ? type : '404';
+        } = this.props
+        const pageType = type in config ? type : '404'
+        const pageTitle = title in config ? type : '404'
         return (
             <Result
                 status={pageType}
@@ -37,7 +37,7 @@ export default class Exception extends PureComponent {
                     <Button type="primary">{backText}</Button>
                 </Link>}
             />
-        );
+        )
     }
 }
 Exception.propTypes = {
@@ -49,4 +49,4 @@ Exception.propTypes = {
     title: PropTypes.string,
     desc: PropTypes.string,
     redirect: PropTypes.object,
-};
+}

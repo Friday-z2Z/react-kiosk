@@ -6,55 +6,55 @@ import styles from './index.less'
 const layout = {
     labelCol: { span: 8 },
     wrapperCol: { span: 16 },
-};
+}
 
 class TestModal extends React.Component {
     constructor(props) {
-        super(props);
+        super(props)
         this.state = {}
     }
 
     compareToPassword = (rule, value, callback) => {
         if (value && value !== '1120') {
-          callback('请输入正确的密码!');
+            callback('请输入正确的密码!')
         } else {
-          callback();
+            callback()
         }
-      };
+    };
 
     handleSubmit = (e) => {
-        e.preventDefault();
+        e.preventDefault()
         this.props.form.validateFields((err, values) => {
             if (!err) {
                 this.props.dispatch({
-                    type:'global/setInfo',
-                    payload:{
-                        idCard:values.idCard
+                    type: 'global/setInfo',
+                    payload: {
+                        idCard: values.idCard
                     }
                 })
-              this.props.onCancel()
+                this.props.onCancel()
             }
-        });
+        })
     }
 
-    render() {
-        const { getFieldDecorator } = this.props.form;
+    render () {
+        const { getFieldDecorator } = this.props.form
         return (
             <BaseModal
                 title="测试"
                 {...this.props}
             >
                 <Form
-                   onSubmit={this.handleSubmit} 
-                   className="test-modal-form"
+                    onSubmit={this.handleSubmit}
+                    className="test-modal-form"
                 >
                     <Form.Item>
                         {getFieldDecorator('idCard', {
                             rules: [{ required: true, message: '请输入正确的身份证号' }],
                         })(
                             <Input
-                            prefix={<Icon type="user" style={{ color: 'rgba(0,0,0,.25)' }} />}
-                            placeholder="请输入身份证号"
+                                prefix={<Icon type="user" style={{ color: 'rgba(0,0,0,.25)' }} />}
+                                placeholder="请输入身份证号"
                             />,
                         )}
                     </Form.Item>
@@ -66,8 +66,8 @@ class TestModal extends React.Component {
                             ],
                         })(
                             <Input
-                            prefix={<Icon type="lock" style={{ color: 'rgba(0,0,0,.25)' }} />}
-                            type="password"
+                                prefix={<Icon type="lock" style={{ color: 'rgba(0,0,0,.25)' }} />}
+                                type="password"
                             />,
                         )}
                     </Form.Item>
@@ -78,7 +78,7 @@ class TestModal extends React.Component {
                     </Form.Item>
                 </Form>
             </BaseModal>
-        );
+        )
     }
 }
 

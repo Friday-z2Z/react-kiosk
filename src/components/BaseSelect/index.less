@@ -1,21 +1,22 @@
 .baseSelect {
   width: auto;
   max-width: 840px;
-  max-height: 255px;
+  max-height: 460px;
   overflow-x: auto;
-
+  overflow-y: hidden;
   .checkbox {
-    padding: 20px 0 40px 0;
+    padding: 20px 0 20px 0;
 
     :global {
       .ant-checkbox-group {
         width: 100%;
         display: flex;
         align-items: center;
-
+        flex-wrap: wrap;
         .ant-checkbox-group-item {
           font-size: 24px !important;
           color: #40a9ff !important;
+          margin: 15px !important;
           // background: #f2f7ff;
           // display: inline-block;
           // display: table;
@@ -40,10 +41,6 @@
             white-space: normal;
           }
 
-          &~.ant-checkbox-group-item {
-            margin-left: 40px;
-          }
-
           &.ant-checkbox-wrapper-checked {
             background: #40a9ff;
             color: #fff !important;
@@ -58,17 +55,17 @@
   }
 
   .radio {
-    padding: 20px 0 40px 0;
-
+    padding: 20px 0 20px 0;
     :global {
       .ant-radio-group {
         width: 100%;
         display: flex;
         align-items: center;
-
+        flex-wrap: wrap;
         .ant-radio-wrapper {
           font-size: 24px !important;
           color: #40a9ff !important;
+          margin: 15px !important;
           // background: #f2f7ff;
           // display: inline-block;
           text-align: center;
@@ -92,10 +89,6 @@
             white-space: normal;
           }
 
-          &~.ant-radio-wrapper {
-            margin-left: 40px;
-          }
-
           &.ant-radio-wrapper-checked {
             background: #40a9ff;
             color: #fff !important;
@@ -106,7 +99,7 @@
           }
 
           &:before {
-            content: " ";
+            content: ' ';
             display: inline-block;
             width: 1%;
             vertical-align: middle;
@@ -118,6 +111,24 @@
 }
 
 :global {
+  .radio-more {
+    width: 840px;
+    height: 460px;
+    .ant-radio-group {
+      width: 100%;
+      height: 100%;
+      flex-direction: column;
+    }
+  }
+  .checkbox-more {
+    width: 840px;
+    height: 460px;
+    .ant-checkbox-group {
+      width: 100%;
+      height: 100%;
+      flex-direction: column;
+    }
+  }
   .common-baseSelect-normal {
     .ant-modal {
       width: auto !important;

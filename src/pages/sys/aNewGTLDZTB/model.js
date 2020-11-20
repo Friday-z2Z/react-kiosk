@@ -1,22 +1,22 @@
 import * as api from '@/services'
 
 export default {
-    namespace:"aNewGTLDZTB",
-    state:{},
+    namespace: "aNewGTLDZTB",
+    state: {},
     subscriptions: {
         //路由监听
-        setupHistory({ dispatch, history }) {},
+        setupHistory ({ dispatch, history }) { },
     },
-    effects:{
-        *getGTLDZTBInfo({ payload },{ call }){
-            console.log(api)
-            const { matters:{ aNewGTLDZTB:{ getGTLDZTBInfo } } } = api
-            return yield call(getGTLDZTBInfo,payload)
+    effects: {
+        // 该方法删除
+        *submit ({ payload }, { call }) {
+            const { matters: { aNewGTLDZTB: { submit } } } = api
+            return yield call(submit, payload)
         }
     },
-    reducers:{
-        save (state,action){
-            return { ...state,...action.payload }
+    reducers: {
+        save (state, action) {
+            return { ...state, ...action.payload }
         }
     }
 }

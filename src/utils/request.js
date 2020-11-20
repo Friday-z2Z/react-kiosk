@@ -1,5 +1,6 @@
 import React from 'react'
 import axios from 'axios'
+import Cookie from 'js-cookie'
 import router from 'umi/router';
 import { message } from 'antd';
 import tools from './tools'
@@ -16,11 +17,30 @@ const service = axios.create({
     timeout: 30000
 })
 
+
+const TranslateError = (msg,path) => {
+    const result = tools.translateError(msg)._FriendlyPrompt
+    React.$tipModal.clear()
+    React.$tipModal.tickModal({
+        content:result,
+        duration:5,
+        countdown:true,
+        pathname:path || '/sys/matters',
+        query:{},
+        state:{}
+    })
+}
+
 // 添加请求拦截器
 service.interceptors.request.use(
     config => {
         let { params={}, data={} } = config
-        const token = React.$tools.getToken()
+        const token = Cookie.get('token')
+        if (!token){
+            console.log('token',token)
+            TranslateError('权限为空','/login')
+            return
+        }
         params.token = token
         data.token = token
         
@@ -31,19 +51,6 @@ service.interceptors.request.use(
         Promise.reject(error)
     }
 )
-
-const TranslateError = (msg) => {
-    const result = tools.translateError(msg)._FriendlyPrompt
-    React.$tipModal.clear()
-    React.$tipModal.tickModal({
-        content:result,
-        duration:5,
-        countdown:true,
-        pathname:'/sys/matters',
-        query:{},
-        state:{}
-    })
-}
 
 // 添加响应拦截器
 service.interceptors.response.use(

@@ -1,38 +1,38 @@
 import React from 'react'
 import { connect } from 'dva'
 import router from 'umi/router'
-import { ContainerQuery } from 'react-container-query';
-import Media from 'react-media';
-import classNames from 'classnames';
-import { Layout, Button } from 'antd';
+import { ContainerQuery } from 'react-container-query'
+import Media from 'react-media'
+import classNames from 'classnames'
+import { Layout, Button } from 'antd'
 import GlobalFooter from '@/layouts/components/GlobalFooter'
 import { ENTRY_PATH } from '@/config/constant.config'
-import { query } from '../constant';
-import Context from '../Context';
+import { query } from '../constant'
+import Context from '../Context'
 import styles from './index.less'
 
 const { Content, Header } = Layout
 
 class PlatForm extends React.Component {
     constructor(props) {
-        super(props);
+        super(props)
         this.state = {
-            collapsed:false,
-            menuTheme:'dark'
+            collapsed: false,
+            menuTheme: 'dark'
         }
     }
 
-    componentDidMount(){
-        const { isMobile } = this.props;
-        const { collapsed } = this.state;
+    componentDidMount () {
+        const { isMobile } = this.props
+        const { collapsed } = this.state
         if (isMobile !== collapsed) {
-            this.setState({ collapsed: isMobile });
+            this.setState({ collapsed: isMobile })
         }
     }
 
-    componentDidUpdate(prevProps, prevState){
-        if (this.props.isMobile !== prevState.collapsed){
-            this.setState({ collapsed: this.props.isMobile });
+    componentDidUpdate (prevProps, prevState) {
+        if (this.props.isMobile !== prevState.collapsed) {
+            this.setState({ collapsed: this.props.isMobile })
         }
     }
 
@@ -43,8 +43,8 @@ class PlatForm extends React.Component {
     goback = () => {
         const { count } = this.props
         router.push({
-            pathname:ENTRY_PATH[1],
-            state:{
+            pathname: ENTRY_PATH[1],
+            state: {
                 count
             }
         })
@@ -52,7 +52,7 @@ class PlatForm extends React.Component {
 
     getContext = (params) => {
         const { collapsed, menuTheme } = this.state
-        let sideWidth = collapsed ? 150 : 250;
+        let sideWidth = collapsed ? 150 : 250
         return {
             params,
             collapsed,
@@ -61,11 +61,11 @@ class PlatForm extends React.Component {
         }
     }
 
-    render() {
-        let { children, name, location:{ pathname } } = this.props
-        name = name || (JSON.parse(window.localStorage.getItem('userInfo'))||{}).name
-        let btn;
-        if (ENTRY_PATH[1] === pathname){
+    render () {
+        let { children, name, location: { pathname } } = this.props
+        name = name || (JSON.parse(window.localStorage.getItem('userInfo')) || {}).name
+        let btn
+        if (ENTRY_PATH[1] === pathname) {
             btn = (
                 <Button type="text" icon='logout' key="logout" onClick={this.logout}>退出</Button>
             )
@@ -76,21 +76,21 @@ class PlatForm extends React.Component {
         }
         return (
             <ContainerQuery query={query}>
-                {params=>(
+                {params => (
                     // react上下文
                     <Context.Provider value={this.getContext(params)}>
-                        <Layout className={classNames(styles.basicLayout,params)}>
+                        <Layout className={classNames(styles.basicLayout, params)}>
                             <Header className={styles.basicLayoutHead}>
                                 <span>
-                                    欢迎您，{ React.$tools.noPassByName(name) }
+                                    欢迎您，{React.$tools.noPassByName(name)}
                                 </span>
                                 <span>
-                                    { btn }
+                                    {btn}
                                 </span>
                             </Header>
                             <Content className={styles.basicLayoutContent}>
                                 <Content className={styles.basicLayoutContentInner}>
-                                    { children }
+                                    {children}
                                 </Content>
                             </Content>
                             <GlobalFooter {...this.props}></GlobalFooter>
@@ -98,11 +98,11 @@ class PlatForm extends React.Component {
                     </Context.Provider>)
                 }
             </ContainerQuery>
-        );
+        )
     }
 }
 
-function mapStateToProps({ global, matters }){
+function mapStateToProps ({ global, matters }) {
     return {
         ...global,
         ...matters
@@ -114,4 +114,4 @@ export default connect(mapStateToProps)(props =>
     <Media query="(max-width: 1279px)">
         {isMobile => <PlatForm {...props} isMobile={isMobile} />}
     </Media>
-);
+)

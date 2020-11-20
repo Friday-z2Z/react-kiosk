@@ -69,12 +69,12 @@ const getUserInfo = () => {
     return state.userInfo || JSON.parse(window.localStorage.getItem('userInfo')) || {}
 }
 
-const setToken = (payload) => {
-    state.token = payload
+const setMachineCode = (payload) => {
+    state.machineCode = payload
 }
 
-const getToken = () => {
-    return state.token || window.localStorage.getItem('token') || {}
+const getMachineCode = () => {
+    return state.machineCode || JSON.parse(window.localStorage.getItem('machineCode')) || {}
 }
 
 const translateError = (message) => {
@@ -149,6 +149,6 @@ export default {
     translateError,
     setUserInfo,
     getUserInfo,
-    setToken,
-    getToken
+    setMachineCode,
+    getMachineCode
 }

@@ -1,29 +1,45 @@
 import React from 'react'
-import BaseForm from '@/components/BaseForm'
-import BaseSelect from '@/components/BaseSelect'
-import BaseContent from '@/components/BaseContent'
-import BaseMaterials from '@/components/BaseMaterials'
-import { SEX_OPTION, INTERRUPT_OPTION } from '@/config/constant.config'
-import { Button } from 'antd'
+import { connect } from 'dva'
+import Cookie from 'js-cookie'
+import { BaseForm, BaseSelect, BaseContent, BaseMaterials, CommonSave } from '@/components/index'
+import { SEX_OPTION, INTERRUPT_OPTION, CONSTANT_PARAMS } from '@/config/constant.config'
 
-class aNewGTLDZTB extends React.Component {
+class ANewGTLDZTB extends React.Component {
 	constructor(props) {
 		super(props)
-		this.state = {}
+		const { location: { state } } = this.props
+		this.state = {
+			...state
+		}
+		console.log(this.state)
 	}
 
-	componentDidMount () {
-		const { location: { state } } = this.props
-		this.setState({
-			...state
-		}, () => {
-			console.log(this.state)
-		})
-	}
+	// componentDidMount () {
+	// 	const { location: { state } } = this.props
+	// 	this.setState({
+	// 		...state
+	// 	}, () => {
+	// 		console.log(this.state)
+	// 	})
+	// }
 
 	render () {
-		const { targetMatter, userInfo, certNumber, sex, birthday, reason, contacterMobilephone, materials } = this.state
-
+		const { 
+			targetMatter, 
+			userInfo, 
+			certNumber, 
+			sex, 
+			birthday, 
+			reason, 
+			basicId,
+			unitId,
+			individualId,
+			regionCode,
+			contacterMobilephone,
+			powerMatterCode,
+			materials 
+		} = this.state
+		const { dispatch } = this.props
 		const fields = [{
 			type: 'Input',
 			name: 'certNumber',
@@ -155,9 +171,62 @@ class aNewGTLDZTB extends React.Component {
 			}
 		}, {
 			title: '材料上传',
-			content: <BaseMaterials dataSource={materials} />,
+			content: <BaseMaterials ref={ref => { this.ref = ref }} dataSource={materials} />,
 			onOk: () => {
-
+				const next = this.ref.validate()
+				return next
+			},
+			submit: (vals) => {
+				// ...所有的表单和材料数据
+				this.payload = {
+					basicId,
+					reason,
+					regionCode,
+					...CONSTANT_PARAMS,
+					insuranceCode: 110,
+					beginDate:React.$tools.getNowFormatTime()
+				}
+				// dispatch({
+				// 	type:'aNewGTLDZTB/submit',
+				// 	payload:{
+				// 		...CONSTANT_PARAMS,
+				// 		basicId,
+				// 		regionCode,
+				// 		beginDate:React.$tools.getNowFormatTime()
+				// 	}
+				// }).then(res=>{
+				// 	if(res){
+				// 		let eno_name = name
+				// 		const logId_yth = res.result.notice.logId_yth
+				// 		// 打印参数
+				// 		this.payload = {
+				// 			...this.payload,
+				// 			channel: '',
+				// 			note: '',
+				// 			aac050: '',
+				// 			operator: encodeURI(eno_name),
+				// 			token:Cookie.get('token'),
+				// 			logId: logId_yth,
+				// 			unitId,
+				// 			individualId
+				// 		}
+				// 	}
+					
+				// 	const params = {
+				// 		situation:'',
+				// 		logId: res.result.notice.logId,
+				// 		materials:vals[1],
+				// 		sbmc:targetMatter.name,
+				// 		contacterMobilephone,
+				// 		certNumber,
+				// 		name,
+				// 		regionCode,
+				// 		powerMatterCode
+				// 	}
+				// 	CommonSave.afterSave(dispatch,params)
+				// })
+				console.log(CommonSave)
+				// CommonSave.afterSave()
 			}
 		}]
 
@@ -171,4 +240,12 @@ class aNewGTLDZTB extends React.Component {
 	}
 }
 
-export default aNewGTLDZTB
+function mapStateToProps({ aNewGTLDZTB }){
+	return {
+		...aNewGTLDZTB
+	}
+}
+
+export default connect(mapStateToProps)(props =>
+	<ANewGTLDZTB {...props}></ANewGTLDZTB>
+)

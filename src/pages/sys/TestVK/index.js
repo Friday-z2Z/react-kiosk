@@ -1,23 +1,23 @@
 import React from 'react'
-import { VKB  } from '@/components/VK'
+import { VKB } from '@/components/VK'
 import { Input } from 'antd'
 
 class TestVK extends React.Component {
     constructor(props) {
-        super(props);
+        super(props)
         this.state = {}
-        this.V = { value:'hello' }
+        this.V = { value: 'hello' }
     }
 
-    componentDidMount(){
+    componentDidMount () {
         React.$tipModal.setCountDownNum(300000000000000000)
     }
 
-    render() {
+    render () {
         return (
-            <Input onClick={(e)=>VKB.showKeyboardSetState(this.V,this,e)} value={this.V.value} />
-        );
+            <Input onClick={(e) => VKB.showKeyboardSetState(this.V, this, e)} value={this.V.value} />
+        )
     }
 }
 
-export default TestVK;
+export default TestVK

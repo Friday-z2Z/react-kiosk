@@ -1,17 +1,17 @@
 import React from 'react'
-import router from 'umi/router';
+import router from 'umi/router'
 import { connect } from 'dva'
-import { Button } from 'antd';
-import BasicLayout from './basic';
-import PlatformLayout from './platform';
-import LayoutWrap from './layout';
+import BasicLayout from './basic'
+import PlatformLayout from './platform'
+import LayoutWrap from './layout'
+import { Button } from 'antd'
 
 class Index extends React.Component {
-    constructor(props){
-        super(props);
+    constructor(props) {
+        super(props)
         this.state = {}
         // const { dispatch } = this.props 
-        
+
 
         // let dom = document.getElementsByClassName('ant-message')[0]
         // dom.onClick = () => {
@@ -28,7 +28,7 @@ class Index extends React.Component {
         //         }
         //     })
         // }
-        
+
         // window.GetWebSocket('getmachineCode', window.callbackMachine)
         // window.CallOldEptouch();
 
@@ -48,24 +48,31 @@ class Index extends React.Component {
 
     logout = () => {
         router.push({
-            pathname:'/login'
+            pathname: '/login'
         })
     }
 
-    componentWillUnmount(){
+    componentDidUpdate(){
+        // if (!this.props.loading){
+        //     React.$tipModal.clear()
+        // }
+    }
+
+    componentWillUnmount () {
         React.$tipModal.clear()
     }
 
-    render(){
+    render () {
+        
         let btn = {}
-        const { children, location:{ pathname } } = this.props;
-        let content;
+        const { children, location: { pathname } } = this.props
+        let content
 
-        if ( 
+        if (
             pathname === '/login' ||
             pathname === '/readcardCX'
         ) {
-            if (pathname === '/readcardCX'){
+            if (pathname === '/readcardCX') {
                 const logout = (
                     <Button type="text" icon='logout' onClick={this.logout} key="logout">返回首页</Button>
                 )
@@ -75,28 +82,28 @@ class Index extends React.Component {
             }
 
             content = (
-                <BasicLayout btns={btn} {...this.props}>{ children }</BasicLayout>
+                <BasicLayout btns={btn} {...this.props}>{children}</BasicLayout>
             )
         } else {
             content = (
-                <PlatformLayout {...this.props} btns = {btn}>{ children }</PlatformLayout>
+                <PlatformLayout {...this.props} btns={btn}>{children}</PlatformLayout>
             )
         }
 
         return (
-            <LayoutWrap {...this.props}>{ content }</LayoutWrap>
-        );
+            <LayoutWrap {...this.props}>{content}</LayoutWrap>
+        )
     }
 }
 
-function mapStateToProps({ global, matters, loading }){
+function mapStateToProps ({ global, matters, loading }) {
     return {
         ...global,
         ...matters,
-        loading:loading.global
+        loading: loading.global
     }
 }
 
 export default connect(mapStateToProps)(props =>
     <Index {...props}></Index>
-);
+)

@@ -4,4 +4,4 @@ module.exports = {
     "@layout-header-height": "94px",
     "@font-size-base": "12px",
     // "@menu-dark-bg": "#333"
-};
+}

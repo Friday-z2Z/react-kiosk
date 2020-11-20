@@ -3,14 +3,14 @@ import styles from './index.less'
 
 class BaseHead extends React.Component {
     constructor(props) {
-        super(props);
+        super(props)
         this.state = {}
     }
-    render() {
+    render () {
         return (
             <div className={styles.title}></div>
-        );
+        )
     }
 }
 
-export default BaseHead;
+export default BaseHead

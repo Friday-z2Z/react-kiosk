@@ -42,7 +42,7 @@ class BaseContent extends React.Component {
 					})
 				} else {
 					// ...保存
-					console.log(this.state)
+					dataSource[current].submit(result)
 				}
 			})
 		}

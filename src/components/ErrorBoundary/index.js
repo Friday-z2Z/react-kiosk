@@ -5,26 +5,26 @@ import styles from './index.less'
 
 class ErrorBoundary extends React.Component {
     constructor(props) {
-        super(props);
+        super(props)
         this.state = {
-            hasError:false
+            hasError: false
         }
     }
 
-    componentDidCatch(error, errorInfo){
+    componentDidCatch (error, errorInfo) {
         this.setState({
-            hasError:true
+            hasError: true
         })
     }
 
     handleClick = () => {
         router.push({
-            pathname:'/login'
+            pathname: '/login'
         })
     }
 
-    render() {
-        if (this.setState.hasError){
+    render () {
+        if (this.setState.hasError) {
             return (
                 <div className={styles.errorBoundary}>
                     <h1>不好意思，系统出现了故障</h1>
@@ -32,12 +32,12 @@ class ErrorBoundary extends React.Component {
                 </div>
             )
         }
-        
+
         return (
-            <>{ this.props.children }</>
+            <>{this.props.children}</>
         )
 
     }
 }
 
-export default ErrorBoundary;
+export default ErrorBoundary
